@@ -54,8 +54,8 @@ class neuralNetwork:
         hiddenErrors = np.dot(self.who_.T, errors)
 
         # Update the weight of the link between hidden and output layer
-        self.who_ += self.learningRate_ + np.dot(errors * outputs * (1 - outputs), hiddenOutputs.T)
+        self.who_ += self.learningRate_ * np.dot(errors * outputs * (1 - outputs), hiddenOutputs.T)
 
-        self.wih_ += self.learningRate_ + np.dot(hiddenErrors * hiddenOutputs * (1 - hiddenOutputs), inputs.T)
+        self.wih_ += self.learningRate_ * np.dot(hiddenErrors * hiddenOutputs * (1 - hiddenOutputs), inputs.T)
 
     
