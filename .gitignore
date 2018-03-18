@@ -99,3 +99,15 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# emacs temp files
+*~
+
+# Environment python files
+bin/
+etc/
+include
+share/
+
+# pip files
+pip-selfcheck.json
