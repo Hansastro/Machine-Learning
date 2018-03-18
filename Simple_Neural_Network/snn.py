@@ -25,6 +25,7 @@ class neuralNetwork:
 
     def predict(self, inputData):
         inputs = np.array(inputData, ndmin=2).T
+
         hiddenOutputs = np.dot(self.wih_, inputs)
         hiddenOutputs = self.activationFunction_(hiddenOutputs)
 
@@ -33,5 +34,24 @@ class neuralNetwork:
 
         return outputs
 
-    def train(self, learningRate = 0.01):
-        pass
+    def train(self, inputData, targetData, learningRate=0.01):
+        # Convert the data in a 2D table
+        inputs = np.array(inputData, ndmin=2).T
+        targetData = np.array(targetData, ndmin=2).T
+
+        hiddenOutputs = np.dot(self.wih_, inputs)
+        hiddenOutputs = self.activationFunction_(hiddenOutputs)
+
+        outputs = np.dot(self.who_, hiddenOutputs)
+        outputs = self.activationFunction_(outputs)
+
+        # Calculation of the output error
+        errors = targetData - outputs
+
+        # Calculation of the hidden layer error
+        hiddenErrors = np.dot(self.who_.T, errors)
+
+        # Update the weight of the link between hidden and output layer
+        self.who_ += self.learningRate_ + np.dot(errors * outputs * (1 - outputs), outputs.T)
+
+        self.wih_ += self.learningRate_ + np.dot(hiddenErrors * hiddenOutputs * (1 - hiddenOutputs), inputs.T)
